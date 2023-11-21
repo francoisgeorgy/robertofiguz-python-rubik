@@ -1,6 +1,7 @@
 from .. import Solver
 from rubik_solver.Move import Move
 
+from rubik_solver.Printer import TtyPrinter
 
 class WhiteCrossSolver(Solver):
     '''
@@ -62,16 +63,31 @@ class WhiteCrossSolver(Solver):
 
             for m in step_solution:
                 self.cube.move(Move(m))
+                print("solution:", m)
+                printer = TtyPrinter(self.cube, True)
+                printer.pprint()
+
             solution.extend(step_solution)
 
             # Second goal is to place the cubie on the top over its place
             while self.cube.cubies['FU'].facings['U'] != 'W' or self.cube.cubies['FU'].facings['F'] != color:
                 solution.append('U')
                 self.cube.move(Move('U'))
+                print("solution: U")
+                printer = TtyPrinter(self.cube, True)
+                printer.pprint()
+
             # Third goal will be a F2 movement
             solution.append("F2")
             self.cube.move(Move("F2"))
+            print("solution: F2")
+            printer = TtyPrinter(self.cube, True)
+            printer.pprint()
+
             solution.append('Y')
             self.cube.move(Move("Y"))
+            print("solution: Y")
+            printer = TtyPrinter(self.cube, True)
+            printer.pprint()
 
         return solution

@@ -6,10 +6,22 @@ from . import F2LSolver
 from . import OLLSolver
 from . import PLLSolver
 
+# from rubik_solver.Printer import TtyPrinter
+
 class CFOPSolver(Solver):
     def solution(self):
+
+        # print("CFOPSolver.solution: start")
+        # printer = TtyPrinter(self.cube, True)
+        # printer.pprint()
+
         cube = copy.deepcopy(self.cube)
         solution = WhiteCrossSolver.WhiteCrossSolver(cube).solution()
+
+        # print("CFOPSolver.solution: after WhiteCrossSolver")
+        # printer = TtyPrinter(cube, True)
+        # printer.pprint()
+
         solution += F2LSolver.F2LSolver(cube).solution()
         solution += OLLSolver.OLLSolver(cube).solution()
         solution += PLLSolver.PLLSolver(cube).solution()
